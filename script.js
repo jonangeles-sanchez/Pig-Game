@@ -1,6 +1,8 @@
 'use strict';
 
 //Selecting elements
+const player0El = document.querySelector('.player--1');
+const player1El = document.querySelector('.player--0');
 const score0El = document.querySelector('#score--0');
 const score1El = document.getElementById('score--1'); //Somewhat faster than querySelector
 const current0El = document.getElementById('current--0');
@@ -38,9 +40,17 @@ btnRoll.addEventListener('click', function () {
       currentScore;
   } else {
     //Switch to next player
-    document.getElementById(`current--${activePlayer}`).textContent =
-      currentScore;
+    document.getElementById(`current--${activePlayer}`).textContent = 0;
     activePlayer = activePlayer === 0 ? 1 : 0; //if active player is 0, then switch to 1, else if player is already 1, then switch to 0.
     currentScore = 0;
+    player0El.classList.toggle('player--active');
+    player1El.classList.toggle('player--active');
+  }
+});
+
+//Hold button functionality
+btnHold.addEventListener('click', function () {
+  score1El.textContent = current0El;
+  if (score1El.textContent >= 100) {
   }
 });
