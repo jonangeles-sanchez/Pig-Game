@@ -66,10 +66,12 @@ btnHold.addEventListener('click', function () {
       player1El.classList.toggle('player--active');
       player1El.classList.toggle('player--winner');
       playing = false;
+      diceEl.classList.add('hidden');
     } else if (score1El.textContent >= 10) {
       player0El.classList.toggle('player--active');
       player0El.classList.toggle('player--winner');
       playing = false;
+      diceEl.classList.add('hidden');
     } else {
       document.getElementById(`current--${activePlayer}`).textContent = 0;
       activePlayer = activePlayer === 0 ? 1 : 0; //if active player is 0, then switch to 1, else if player is already 1, then switch to 0.
@@ -81,3 +83,20 @@ btnHold.addEventListener('click', function () {
 });
 
 //New Game functionality.
+btnNew.addEventListener('click', function () {
+  //Set all scores to zero
+  document.getElementById(`current--${activePlayer}`).textContent = 0;
+  currentScore = 0;
+  scores[0] = 0;
+  scores[1] = 0;
+  playing = true;
+  score0El.textContent = 0;
+  score1El.textContent = 0;
+
+  //Set player to 0
+  player0El.classList.remove('player--winner');
+  player1El.classList.remove('player--winner');
+  player1El.classList.add('player--active');
+  player0El.classList.remove('player--active');
+  activePlayer = 0;
+});
