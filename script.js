@@ -7,6 +7,7 @@ const score0El = document.querySelector('#score--0');
 const score1El = document.getElementById('score--1'); //Somewhat faster than querySelector
 const current0El = document.getElementById('current--0');
 const current1El = document.getElementById('current--1');
+const winner = document.querySelector('.player--winner');
 
 const diceEl = document.querySelector('.dice');
 const btnNew = document.querySelector('.btn--new');
@@ -50,7 +51,28 @@ btnRoll.addEventListener('click', function () {
 
 //Hold button functionality
 btnHold.addEventListener('click', function () {
-  score1El.textContent = current0El;
-  if (score1El.textContent >= 100) {
+  if (activePlayer == 0) {
+    scores[0] += currentScore;
+    score0El.textContent = scores[0];
+  } else {
+    scores[1] += currentScore;
+    score1El.textContent = scores[1];
+  }
+  if (score0El.textContent >= 100) {
+    player1El.classList.toggle('player--active');
+    player1El.classList.toggle('player--winner');
+    btnRoll.removeEventListener('click');
+  } else if (score1El.textContent >= 100) {
+    player0El.classList.toggle('player--active');
+    player0El.classList.toggle('player--winner');
+    btnRoll.removeEventListener('click');
+  } else {
+    document.getElementById(`current--${activePlayer}`).textContent = 0;
+    activePlayer = activePlayer === 0 ? 1 : 0; //if active player is 0, then switch to 1, else if player is already 1, then switch to 0.
+    currentScore = 0;
+    player0El.classList.toggle('player--active');
+    player1El.classList.toggle('player--active');
   }
 });
+
+//Hold button functionality.
